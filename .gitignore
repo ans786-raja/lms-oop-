@@ -1,0 +1,95 @@
+# Ignore Visual Studio files
+.vscode/
+*.code-workspace
+
+# Ignore build artifacts
+*.obj
+*.exe
+*.dll
+*.pdb
+*.ilk
+*.idb
+*.ipch
+*.suo
+*.user
+*.cache
+*.log
+*.tlog
+*.ncb
+*.sdf
+*.opendb
+*.vcxproj
+*.vcxproj.filters
+
+# Ignore Visual Studio specific directories
+.vs
+lms oop project/
+Debug/
+Release/
+Build/
+x64/
+x86/
+ARM/
+ARM64/
+
+# Ignore CMake-generated files
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+compile_commands.json
+
+# Ignore dependency and package manager files
+packages/
+.vcpkg/
+
+# Ignore compiled libraries and binaries
+*.lib
+*.a
+*.lo
+*.la
+*.o
+*.so
+*.dylib
+*.exp
+*.pdb
+*.tlb
+*.tli
+*.tlh
+
+# Ignore generated documentation
+*.dox
+*.pdf
+*.chm
+*.html
+*.md
+
+# Ignore temporary files
+*.tmp
+*.log
+*.swp
+*.swn
+*.bak
+
+# Ignore Visual Studio Code settings
+.vscode/
+*.code-workspace
+
+# Ignore C++ standard library artifacts
+*.gcda
+*.gcno
+*.gcov
+
+# Ignore custom user-specific configuration
+*.userprefs
+*.userosscache
+
+# Ignore Clangd index and cache
+.clangd/
+.cache/
+
+Books.txt
+Student.txt
+BorrowedBooks.txt
