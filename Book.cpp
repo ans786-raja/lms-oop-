@@ -22,9 +22,7 @@ void Books::addBook(const string& filename) {
 
     nextbookID = bookID + 1;
     bookID = nextbookID;
-
     cout << "Enter Book Title: ";
-    cin.ignore();
     getline(cin, title);
     cout << "Enter Author: ";
     getline(cin, author);
@@ -38,6 +36,66 @@ void Books::addBook(const string& filename) {
     fileHandler.saveData(newBookData, filename);
 
     cout << "Book added successfully. Book ID: " << bookID << "\n";
+}
+
+void Books::updateBook(const string& filename) {
+    FileHandler fileHandler;
+    vector<string> data;
+
+    if (!fileHandler.readData(data, filename)) {
+        cout << "Error opening file.\n";
+        return;
+    }
+
+    cout << "Enter Book ID to update: ";
+    int searchID;
+    cin >> searchID;
+    cin.ignore();
+
+    bool found = false;
+
+    for (string& line : data) {
+        stringstream ss(line);
+        int storedBookID;
+        string storedTitle, storedAuthor;
+        int storedYear, storedCopies;
+
+        // Read the existing data
+        getline(ss, storedTitle, ',');
+        getline(ss, storedAuthor, ',');
+        ss >> storedYear >> storedCopies;
+
+        ss.clear();
+        ss.seekg(0); // Reset stringstream position
+        ss >> storedBookID; // Extract book ID
+
+        // Check if book ID matches
+        if (storedBookID == searchID) {
+            found = true;
+
+            cout << "Enter new Title: ";
+            getline(cin, storedTitle);
+            cout << "Enter new Author: ";
+            getline(cin, storedAuthor);
+            cout << "Enter new Year: ";
+            cin >> storedYear;
+            cout << "Enter new Available Copies: ";
+            cin >> storedCopies;
+            cin.ignore();
+
+            // Update the line with new data
+            line = to_string(storedBookID) + ", " + storedTitle + ", " + storedAuthor + ", " + to_string(storedYear) + ", " + to_string(storedCopies);
+            break;  // No need to continue looping
+        }
+    }
+
+    if (found) {
+        fileHandler.writeData(data, filename);
+        cout << "Book updated successfully.\n";
+    }
+    else {
+        cout << "Book not found.\n";
+    }
 }
 
 void Books::displayBooks() const {
@@ -55,16 +113,24 @@ void Books::displayBooks() const {
     }
 }
 
-void Books::searchBook(const string& keyword) const {
+void Books::searchBook(const string& filename) const {
     FileHandler fileHandler;
     vector<string> data;
 
-    if (!fileHandler.readData(data, "Books.txt")) {
+    // Read file data
+    if (!fileHandler.readData(data, filename)) {
         cout << "Error opening file.\n";
         return;
     }
 
+    string keyword;
+    cout << "Enter book title or author to search: ";
+    cin.ignore(); // Ignore leftover newline from previous input
+    getline(cin, keyword);
+
     bool found = false;
+
+    // Search in the file data
     for (const auto& book : data) {
         if (book.find(keyword) != string::npos) {
             cout << book << endl;
@@ -77,73 +143,32 @@ void Books::searchBook(const string& keyword) const {
     }
 }
 
-void Books::updateBook() {
-    FileHandler fileHandler;
-    vector<string> data;
-    if (!fileHandler.readData(data, "Books.txt")) {
-        cout << "Error opening file.\n";
-        return;
-    }
-    //int id;
-    cout << "Enter Book ID to update: ";
-    cin >> bookID;
-    //cin.ignore();
-
-    //bool found = false;
-    for (auto& lan : data) {
-        stringstream ss(lan);
-        //int storedbookID;
-        ss >> bookID;
-        if (bookID == bookID) {
-            //        found = true;
-            cout << "Enter new Title: ";
-            getline(cin, title);
-            cin.ignore();
-            cout << "Enter new Author: ";
-            getline(cin, author);
-            cin.ignore();
-            cout << "Enter new Year: ";
-            cin >> year;
-            cout << "Enter new Available Copies: ";
-            cin >> availableCopies;
-            cin.ignore();
-
-            lan = to_string(id) + ", " + title + ", " + author + ", " + to_string(year) + ", " + to_string(availableCopies);
-        }
-
-
-        //if (!found)
-        {
-            cout << "Book not found.\n";
-            return;
-        }
-
-        fileHandler.writeData(data, "Books.txt");
-        cout << "Book updated successfully.\n";
-    }
-}
-void Books::deleteBook(int id) const {
+void Books::deleteBook(const string& filename) const {
     FileHandler fileHandler;
     vector<string> data;
 
-    if (!fileHandler.readData(data, "Books.txt")) {
-        cout << "Error opening file.\n";
-        return;
+    // Load the file into the vector
+    if (!fileHandler.readData(data, filename)) {
+        cout << "Error opening file. Ensure 'Books.txt' exists.\n";
+        //return;
     }
+
+    string keyword;
+    cout << "Enter a keyword to delete book (ID, Title, or Author): ";
+    cin.ignore(); // Clear input buffer
+    getline(cin, keyword); // Read full line input
 
     bool found = false;
     vector<string> updatedData;
 
     for (const auto& lan : data) {
-        stringstream ss(lan);
-        int storedID;
-        ss >> storedID;
-        if (storedID == id) {
+        // If the line contains the keyword, we skip it (i.e., delete the book)
+        if (lan.find(keyword) != string::npos) {
             found = true;
+            cout << "Deleting: " << lan << endl;
+            continue; // Do not add this line to updatedData
         }
-        else {
-            updatedData.push_back(lan);
-        }
+        updatedData.push_back(lan);
     }
 
     if (!found) {
@@ -151,7 +176,7 @@ void Books::deleteBook(int id) const {
         return;
     }
 
-    fileHandler.writeData(updatedData, "Books.txt");
+    // Write the updated list back to the file
+    fileHandler.writeData(updatedData, filename);
     cout << "Book deleted successfully.\n";
 }
-

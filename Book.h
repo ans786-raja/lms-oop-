@@ -9,7 +9,7 @@ using namespace std;
 
 class Books{
 public:
-    int id;
+    int id = 0;
     int bookID=1;
     string title;
     int year;
@@ -24,10 +24,10 @@ public:
     }
 
     void addBook(const string& filename);
-    void updateBook();
+    void updateBook(const string& filename);
     void displayBooks()const ;
-    void searchBook(const string& keyword)const;
-    void deleteBook(int id)const;
+    void searchBook(const string& filename)const;
+    void deleteBook(const string& filename)const;
 };
 
 #endif

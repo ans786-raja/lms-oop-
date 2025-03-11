@@ -10,9 +10,7 @@ using namespace std;
 
 class FileHandler {
 public:
- /*   bool writeData(const vector<string>& data, const string& filename);
-    bool saveData(const string& data, const string& filename);
-    bool readData(vector<string>& data, const string& filename);*/
+
     bool readData(vector<string>& data, const string& filename);
     bool writeData(const vector<string>& data, const string& filename);
     bool saveData(const string& newEntry, const string& filename);

@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include "store.h"
-//#include"FileHandler.h"
 #include "book.h"
 #include "user.h"
 
@@ -51,17 +50,10 @@ int main() {
                         break;
                     }
                     case 2: {
-                      
-                        int id;
-                        cout << "Enter Book ID to update: ";
-                        cin >> id;
-                        for (auto& book : books) {
-                            if (book.bookID == id) {
-                                book.updateBook();
+                        Books book;
+                    
+                                book.updateBook("Books.txt");
                                 break;
-                            }
-                        }
-                        break;
                     }
                     case 3: {
                         Books book;
@@ -71,26 +63,16 @@ int main() {
                     }
                     case 4: {
                         Books book;
-                        string keyword;
-                        //c/*out << "Enter keyword to search: ";
-                        //getline(cin, keyword);
-                        //for (const auto& book : books) {*/
-                            book.searchBook(keyword);
-                        //}
-                        break;
-                    }
-                    case 5: {
-                        Books book;
-                        int id;
-                        cout << "Enter Book ID to delete: ";
-                        cin >> id;
-                        for (auto& book : books) {
-                            if (book.bookID == id) {
-                                book.deleteBook(id);
-                                break;
-                            }
+                     
+                            book.searchBook("Books.txt");
                         }
                         break;
+                    
+                    case 5: {
+                        Books book;
+                       
+                                book.deleteBook("Books.txt");
+                                break;
                     }
                     
                     case 6: {

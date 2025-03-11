@@ -36,9 +36,9 @@ void Student::Register() {
 }
 
 bool Student::StudentLogin(Student& student) {
-
     string input, password;
     bool log = false;
+
     cout << "Enter email or username: ";
     cin >> input;
     cout << "Enter password: ";
@@ -46,23 +46,46 @@ bool Student::StudentLogin(Student& student) {
 
     vector<string> data;
     FileHandler fileHandler;
-    fileHandler.readData(data, "Student.txt");
-    
-    for (const auto& lan : data) {
-        size_t log1 = lan.find(", ");
-        size_t log2 = lan.find(", ", log1 + 2);
-        string storedEmail = lan.substr(0, log1);
-        string storedUserName = lan.substr(log1 + 2, log2 - (log1 + 2));
-        string storedPassword = lan.substr(log2 + 2);
-        if ((input == storedEmail || input == storedUserName) && password == storedPassword) {
-            student.Email = storedEmail;
-            student.userName = storedUserName;
-            student.password = storedPassword;
-            cout << "Student logged in successfully.\n";
-            return true;
+
+    // Read data from file
+    if (!fileHandler.readData(data, "Student.txt")) {
+        cout << "Error: Could not open Student.txt\n";
+        return false;
+    }
+
+    // Process each line
+    for (const auto& line : data) {
+        stringstream ss(line);
+        string storedEmail, storedUsername, storedPassword;
+
+        // Read values from the file (CSV format)
+        getline(ss, storedEmail, ',');
+        ss.ignore(1); // Ignore space
+        getline(ss, storedUsername, ',');
+        ss.ignore(1); // Ignore space
+        getline(ss, storedPassword);
+
+        // Debugging: Uncomment these to check file contents
+        // cout << "Checking: " << storedEmail << " | " << storedUsername << " | " << storedPassword << endl;
+
+        // Check if input matches stored email or username and password
+        if ((input == storedEmail || input == storedUsername) && password == storedPassword) {
+            cout << "Login successful!\n";
+            log = true;
+
+            // Assign logged-in student details
+            string storedEmail = storedEmail;
+            string storedUserName = storedUsername;
+            string password = storedPassword;
+            
+            return true; // Exit after successful login
         }
     }
-    //cout << "Invalid email/username or password.\n";
+
+    // If no match found
+    if (!log) {
+        cout << "Invalid email/username or password. Please try again.\n";
+    }
     return false;
 }
 
