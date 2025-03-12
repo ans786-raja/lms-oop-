@@ -3,13 +3,16 @@
 #include "store.h"
 #include "book.h"
 #include "user.h"
-
+#include"student.h"
+#include"librarian.h"
 using namespace std;
 
 int main() {
    
     vector<Books> books;
     Student student;
+    User user;
+    Librarian librarian;
     int option;
 
     while (true) {
@@ -18,7 +21,7 @@ int main() {
         cin.ignore();
 
         if (option == 3) {
-            student.Register();
+            user.Register();
             continue;
         }
 
@@ -28,7 +31,7 @@ int main() {
         }
 
         if (option == 1) {
-            if (student.LibrarianLogIn()) {
+            if (librarian.LibrarianLogIn()) {
                 int librarianChoice;
                 while (true) {
                     cout << "\nLibrarian Menu\n";
@@ -87,7 +90,7 @@ int main() {
         }
 
         if (option == 2) {
-            if (student.StudentLogin(student)) {
+            if (user.Login(user)) {
                 int studentChoice;
                 while (true) {
                     cout << "\nStudent Menu\n";
@@ -100,6 +103,7 @@ int main() {
 
                     switch (studentChoice) {
                     case 1:
+                       
                         student.BorrowBook(books);
                         break;
                     case 2:
