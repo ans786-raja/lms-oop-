@@ -1,11 +1,12 @@
 #ifndef BOOK_H
 #define BOOK_H
 #include"crud.h"
+#include"librarian.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
 using namespace std;
-class Books: public Crud{
+class Books: public Librarian,  Crud{
 public:
     int maxID = 0;
     int bookID=1;

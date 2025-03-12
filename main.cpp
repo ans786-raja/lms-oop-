@@ -8,13 +8,12 @@
 using namespace std;
 
 int main() {
-   
+    
     vector<Books> books;
     Student student;
     User user;
     Librarian librarian;
     int option;
-
     while (true) {
         cout << "Login as:\n1. Librarian\n2. Student\n3. Register\n4. Exit\n";
         cin >> option;

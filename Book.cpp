@@ -90,7 +90,7 @@
             cin.ignore();
             bool found = false;
             vector<string> updatedata;
-            for (size_t i = 0; i < data.size(); i = 5) {
+            for (size_t i = 0; i < data.size(); i += 5) {
                 int storedBookID;
                 string storedTitle, storedAuthor;
                 int storedYear, storedCopies;
@@ -109,16 +109,20 @@
 
                 if (storedBookID == searchID) {
                     found = true;
+                    cout << "current title: " << storedTitle << endl;
                     cout << "Enter new Title: ";
                     getline(cin, storedTitle);
+                    cout << "current Author: " << storedAuthor << endl;
                     cout << "Enter new Author: ";
                     getline(cin, storedAuthor);
+                    cout << "current year: " << storedYear << endl;
                     cout << "Enter new Year: ";
                     cin >> storedYear;
 
                     if (cin.fail()) {
                         throw invalid_argument("Invalid year input! Please enter a number.");
                     }
+                    cout << "current Available Copies: " << storedCopies << endl;
                     cout << "Enter new Available Copies: ";
                     cin >> storedCopies;
                     if (cin.fail()) {
@@ -183,7 +187,7 @@
             cin.ignore();
             getline(cin, keyword);
             bool found = false;
-              for (size_t i = 0; i < data.size(); i = 5) {
+              for (size_t i = 0; i < data.size(); i += 5) {
                 string bookID = data[i];
                 string title = data[i + 1];
                 string author = data[i + 2];

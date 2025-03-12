@@ -13,8 +13,7 @@ public:
     string userName;
     string Email;
     string password;
-   /* const string Librarian_EMAIL = "anees123@gmail.com";
-    const string Librarian_PASSWORD = "anees123";*/
+   
     vector<int> borrowedBooks;
    
 public:
@@ -23,11 +22,9 @@ public:
         : id(i), Name(na), userName(us), Email(em), password(pa) {
     }
 
-   /* bool LibrarianLogIn();*/
     void Register();
     bool Login(User& user);
-    /*void BorrowBook(vector<Books>& books);
-    void ReturnBook(vector<Books>& books);*/
+   
 };
 
 #endif
