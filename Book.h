@@ -4,12 +4,10 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-
 using namespace std;
-
-class Books{
+class Books: public Crud{
 public:
-    int id = 0;
+    int maxID = 0;
     int bookID=1;
     string title;
     int year;
@@ -22,12 +20,12 @@ public:
     Books(int id, string t, string a, int y, int copies)
         : bookID(id), title(t), author(a), year(y), availableCopies(copies) {
     }
-
-    void addBook(const string& filename);
-    void updateBook(const string& filename);
-    void displayBooks()const ;
-    void searchBook(const string& filename)const;
-    void deleteBook(const string& filename)const;
+    
+    void addBook(vector<string>& data, const string& filename)override;
+    void updateBook(vector<string>& data, const string& filename)override;
+    void displayBook(const string& filename)override;
+    void searchBook( const string& filename)override;
+    void deleteBook(const string& filename) override;
 };
 
 #endif

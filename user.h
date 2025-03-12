@@ -1,16 +1,11 @@
 #ifndef USER_H
 #define USER_H
-
 #include <fstream>
 #include <string>
 #include <iostream>
 #include <vector>
 #include "book.h" 
-
 using namespace std;
-
-
-
 class Student:public Books {
 public:
     int id;

@@ -45,34 +45,34 @@ int main() {
                     switch (librarianChoice) {
                     case 1: {
                         Books book;
-                        book.addBook("Books.txt");
+                        vector<string> data;
+                        book.addBook(data,"Books.txt");
                         books.push_back(book);
                         break;
                     }
                     case 2: {
                         Books book;
-                    
-                                book.updateBook("Books.txt");
+                        vector<string>data;
+                                book.updateBook(data,"Books.txt");
                                 break;
                     }
                     case 3: {
                         Books book;
-                        book.displayBooks();
+                        book.displayBook("Books.txt");
                         
                         break;
                     }
                     case 4: {
                         Books book;
-                     
+                        
                             book.searchBook("Books.txt");
                         }
                         break;
                     
                     case 5: {
                         Books book;
-                       
-                                book.deleteBook("Books.txt");
-                                break;
+                        book.deleteBook("Books.txt");
+                        break;
                     }
                     
                     case 6: {

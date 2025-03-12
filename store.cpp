@@ -1,11 +1,9 @@
-
 #include "store.h"
 #include <iostream>
 #include <fstream>
 
 using namespace std;
-
-
+//Readdat function
 bool FileHandler::readData(vector<string>& data, const string& filename) {
     ifstream file(filename);
     if (!file) {
@@ -21,7 +19,7 @@ bool FileHandler::readData(vector<string>& data, const string& filename) {
     file.close();
     return true;
 }
-
+//Writedata function
 bool FileHandler::writeData(const vector<string>& data, const string& filename) {
     ofstream file(filename);
     if (!file) {
@@ -36,7 +34,7 @@ bool FileHandler::writeData(const vector<string>& data, const string& filename) 
     return true;
 }
 
-
+//Savedata function
 bool FileHandler::saveData(const string& newEntry, const string& filename) {
     ofstream file(filename, ios::app);
     if (!file) {

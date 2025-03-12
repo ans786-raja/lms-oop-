@@ -1,13 +1,20 @@
+
 #ifndef CRUD_H
 #define CRUD_H
+
+#include <string>
+#include <vector>
+using namespace std;
+
 class Crud {
-protected:
+public:
+    virtual void addBook(vector<string>& data, const string& filename) = 0;
+    virtual void updateBook(vector<string>& data, const string& filename) = 0;
+    virtual void displayBook(const string& filename) = 0;
+    virtual void searchBook( const string& filename) = 0;
+    virtual void deleteBook(const string& filename) = 0;
 
-	virtual void AddBook() = 0;
-	virtual void DeleteBook() = 0;
-	virtual void UpdateBook() = 0;
-	virtual void DisplayBook() = 0;
-	virtual void SearchBook() = 0;
-
+    virtual ~Crud() {} 
 };
+
 #endif
