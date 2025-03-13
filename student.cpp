@@ -1,49 +1,41 @@
-#include <fstream>
+﻿#include <fstream>
 #include <string>
-#include<sstream>
 #include <iostream>
-#include"book.h"
-#include"student.h"
-#include"store.h"
-// Borrow book function
+#include "book.h"
+#include "student.h"
+#include "store.h"
+
+//  Borrow Book Function
 void Student::BorrowBook(vector<Books>& books) {
     FileHandler fileHandler;
     vector<string> data;
+
     if (!fileHandler.readData(data, "Books.txt")) {
         cout << "Error opening Books.txt.\n";
         return;
     }
-    books.clear(); 
-    for (size_t i = 0; i < data.size(); i++) {
-        if (data[i] == "-");
-        if (i + 4 >= data.size()) {
-            cout << i;
-            break;
-        }
+
+    books.clear();
+    for (size_t i = 0; i + 4 < data.size(); i += 5) {
         Books book;
-        stringstream ss;
-        ss << data[i];
-        ss >> book.bookID;
+        book.bookID = stoi(data[i]);
         book.title = data[i + 1];
         book.author = data[i + 2];
-        ss.clear();
-        ss << data[i + 3];
-        ss >> book.year;
-        ss.clear();
-        ss << data[i + 4];
-        ss >> book.availableCopies;
+        book.year = stoi(data[i + 3]);
+        book.availableCopies = stoi(data[i + 4]);
         books.push_back(book);
-        i += 4;
     }
+
     int bookID;
     cout << "Enter book ID to borrow: ";
     cin >> bookID;
     bool found = false;
     vector<string> updatedData;
+
     for (auto& book : books) {
         if (book.bookID == bookID && book.availableCopies > 0) {
-            book.availableCopies--; 
-            borrowedBooks.push_back(bookID); 
+            book.availableCopies--;
+            borrowedBooks.push_back(bookID);
             found = true;
         }
 
@@ -53,20 +45,21 @@ void Student::BorrowBook(vector<Books>& books) {
         updatedData.push_back(book.author);
         updatedData.push_back(to_string(book.year));
         updatedData.push_back(to_string(book.availableCopies));
-        
     }
+
     fileHandler.writeData(updatedData, "Books.txt");
+
     if (found) {
-        // Save borrowing record
         string borrowData = "Student: " + userName + ", Book ID: " + to_string(bookID);
         fileHandler.saveData(borrowData, "BorrowedBooks.txt");
-
         cout << "Book borrowed successfully!\n";
-    } else {
+    }
+    else {
         cout << "Book not available or invalid ID.\n";
     }
 }
-//Return Book function
+
+//  Return Book Function
 void Student::ReturnBook(vector<Books>& books) {
     int bookID;
     cout << "Enter book ID to return: ";
@@ -75,7 +68,6 @@ void Student::ReturnBook(vector<Books>& books) {
     FileHandler fileHandler;
     vector<string> borrowedData;
 
-    // Load borrowed books
     if (!fileHandler.readData(borrowedData, "BorrowedBooks.txt")) {
         cout << "Error opening BorrowedBooks.txt.\n";
         return;
@@ -88,21 +80,13 @@ void Student::ReturnBook(vector<Books>& books) {
     }
 
     books.clear();
-
-    // Load books from file
     for (size_t i = 0; i + 4 < bookData.size(); i += 5) {
         Books book;
-        stringstream ss;
-        ss << bookData[i];
-        ss >> book.bookID;
+        book.bookID = stoi(bookData[i]);
         book.title = bookData[i + 1];
         book.author = bookData[i + 2];
-        ss.clear();
-        ss << bookData[i + 3];
-        ss >> book.year;
-        ss.clear();
-        ss << bookData[i + 4];
-        ss >> book.availableCopies;
+        book.year = stoi(bookData[i + 3]);
+        book.availableCopies = stoi(bookData[i + 4]);
         books.push_back(book);
     }
 
@@ -112,7 +96,7 @@ void Student::ReturnBook(vector<Books>& books) {
 
     for (size_t i = 0; i < borrowedData.size(); i++) {
         if (!found && borrowedData[i].find("Book ID: " + to_string(bookID)) != string::npos) {
-            found = true;  
+            found = true;
             continue;
         }
         updatedBorrowedData.push_back(borrowedData[i]);
@@ -122,16 +106,16 @@ void Student::ReturnBook(vector<Books>& books) {
         cout << "Book not found in your borrowed list.\n";
         return;
     }
-    // Update book copies
+
     for (auto& book : books) {
         if (book.bookID == bookID) {
-            book.availableCopies++;  
+            book.availableCopies++;
             break;
         }
     }
-    // Save updated borrowed books list
+
     fileHandler.writeData(updatedBorrowedData, "BorrowedBooks.txt");
-    // Save updated book list 
+
     vector<string> updatedBookData;
     for (const auto& book : books) {
         updatedBookData.push_back(to_string(book.bookID));
@@ -145,5 +129,3 @@ void Student::ReturnBook(vector<Books>& books) {
 
     cout << "Book returned successfully!\n";
 }
-
-
