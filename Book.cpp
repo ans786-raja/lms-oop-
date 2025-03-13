@@ -50,7 +50,7 @@ void Books::addBook(vector<string>& data, const string& filename) {
 
     }
     catch (const exception& e) {
-        cerr << "Error: " << e.what() << endl;
+        cout << "Error: " << e.what() << endl;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Clear buffer
     }
@@ -104,7 +104,7 @@ void Books::updateBook(vector<string>& data, const string& filename) {
 
     }
     catch (const exception& e) {
-        cerr << "Error: " << e.what() << endl;
+        cout << "Error: " << e.what() << endl;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
@@ -132,7 +132,7 @@ void Books::displayBook(const string& filename) {
 
     }
     catch (const exception& e) {
-        cerr << "Error: " << e.what() << endl;
+        cout << "Error: " << e.what() << endl;
     }
 }
 
@@ -177,7 +177,7 @@ void Books::searchBook(const string& filename) {
 
     }
     catch (const exception& e) {
-        cerr << "Error: " << e.what() << endl;
+        cout << "Error: " << e.what() << endl;
     }
 }
 
@@ -218,7 +218,7 @@ void Books::deleteBook(const string& filename) {
 
     }
     catch (const exception& e) {
-        cerr << "Error: " << e.what() << endl;
+        cout << "Error: " << e.what() << endl;
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }

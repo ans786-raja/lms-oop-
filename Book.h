@@ -8,7 +8,6 @@
 using namespace std;
 class Books: public Librarian,  Crud{
 public:
-    int maxID = 0;
     int bookID=1;
     string title;
     int year;
@@ -18,8 +17,13 @@ public:
     vector<Books>book;
 public:
     Books() : bookID(0), year(0), availableCopies(0) {}
-    Books(int id, string t, string a, int y, int copies)
-        : bookID(id), title(t), author(a), year(y), availableCopies(copies) {
+    Books(int id, string t, string a, int y, int copies) {
+        bookID = id;
+        title = t;
+        author = a;
+        year = y;
+        availableCopies = copies;
+
     }
     
     void addBook(vector<string>& data, const string& filename)override;
