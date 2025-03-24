@@ -1,12 +1,17 @@
 #ifndef BOOK_H
 #define BOOK_H
-#include"crud.h"
+#include"interface.h"
 #include"librarian.h"
+#include"fileException.h"
+#include"crudinterface.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
+#define implements public  
 using namespace std;
-class Books: public Librarian,  Crud{
+  class FileException;
+class Books : implements Librarian,  Interface,CrudInterface{
+
 public:
     int bookID=1;
     string title;
@@ -26,11 +31,14 @@ public:
 
     }
     
-    void addBook(vector<string>& data, const string& filename)override;
-    void updateBook(vector<string>& data, const string& filename)override;
-    void displayBook(const string& filename)override;
-    void searchBook( const string& filename)override;
-    void deleteBook(const string& filename) override;
+    void createData(vector<string>& data, const string& filename)override;
+    void updateData(vector<string>& data, const string& filename)override;
+    void displayData(const string& filename)override;
+    void searchData( const string& filename)override;
+    void deleteData(const string& filename) override;
+    bool searchByTitle(const vector<string>& bookData, const string& keyword);
+    bool searchByAuthor(const vector<string>& bookData, const string& keyword);
+    bool searchByYear(const vector<string>& bookData, const string& keyword);
 };
 
 #endif

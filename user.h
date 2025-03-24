@@ -5,8 +5,10 @@
 #include <iostream>
 #include <vector>
 #include "book.h" 
+#include"interface.h"
+#define implements public
 using namespace std;
-class User {
+class User:implements Interface {
 public:
     int id;
     string Name;
@@ -27,7 +29,10 @@ public:
 
     void Register();
     bool Login(User& user);
-   
+    void createData(vector<string>& data, const string& filename)override;
+    void updateData(vector<string>& data, const string& filename )override;
+    void displayData(const string& filename)override;
+    void searchData(const string& filename)override;
 };
 
 #endif

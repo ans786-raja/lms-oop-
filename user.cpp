@@ -26,7 +26,7 @@ bool User::Login(User& user) {
     FileHandler fileHandler;
     // Read data from file
     if (!fileHandler.readData(data, "Student.txt")) {
-        cout << "Error: Could not open Student.txt\n";
+        cout << "Could not open Student.txt\n";
         return false;
     }
     for (const auto& line : data) {
@@ -55,3 +55,19 @@ bool User::Login(User& user) {
     }
     return false;
 }
+// Function to create Student Data
+void User::createData(vector<string>& data, const string& filename) {}
+// Function to Display All Students
+void User::displayData(const string& filename) {
+
+}
+// Function to Update Student Data
+void User::updateData(vector<string>& data, const string& filename) {
+
+}
+// Function to search Student Data
+void User::searchData(const string& filename) {
+
+}
+
+

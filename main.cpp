@@ -5,12 +5,17 @@
 #include "user.h"
 #include"student.h"
 #include"librarian.h"
-using namespace std;
+#include"PremiumStudent1.h"
+#include"fileException.h"
 
+using namespace std;
 int main() {
-    
+   
+        FileException fileexception("must be numric");
+        //Student* student = new PremiumStudent("Anees"); 
+    PremiumStudent student("anees");
+
     vector<Books> books;
-    Student student;
     User user;
     Librarian librarian;
     int option;
@@ -34,7 +39,7 @@ int main() {
                 int librarianChoice;
                 while (true) {
                     cout << "\nLibrarian Menu\n";
-                    cout << "1. Add Book\n";
+                    cout << "1. Create Book\n";
                     cout << "2. Update Book\n";
                     cout << "3. Display Books\n";
                     cout << "4. Search Books\n";
@@ -46,37 +51,40 @@ int main() {
 
                     switch (librarianChoice) {
                     case 1: {
-                        Books book;
-                        vector<string> data;
-                        book.addBook(data,"Books.txt");
-                        books.push_back(book);
-                        break;
-                    }
+                       
+                            Books book;
+                            vector<string> data;
+                            book.createData(data, "Books.txt");
+                            books.push_back(book);
+                           //fileexception.handleInvalidInput("error");
+                            break;
+                           
+                        }
+                      
                     case 2: {
                         Books book;
                         vector<string>data;
-                                book.updateBook(data,"Books.txt");
-                                break;
+                        book.updateData(data, "Books.txt");
+                        break;
                     }
                     case 3: {
                         Books book;
-                        book.displayBook("Books.txt");
-                        
+                        book.displayData("Books.txt");
                         break;
                     }
                     case 4: {
                         Books book;
-                        
-                            book.searchBook("Books.txt");
-                        }
-                        break;
-                    
+
+                        book.searchData("Books.txt");
+                    }
+                          break;
+
                     case 5: {
                         Books book;
-                        book.deleteBook("Books.txt");
+                        book.deleteData("Books.txt");
                         break;
                     }
-                    
+
                     case 6: {
                         cout << "Log out...\n";
                         goto LOGIN_MENU;
@@ -84,42 +92,71 @@ int main() {
                     default:
                         cout << "Invalid choice. Try again.\n";
                     }
-                }
-            }
-        }
-
-        if (option == 2) {
-            if (user.Login(user)) {
-                int studentChoice;
-                while (true) {
-                    cout << "\nStudent Menu\n";
-                    cout << "1. Borrow Book\n";
-                    cout << "2. Return Book\n";
-                    cout << "3. Logout\n";
-                    cout << "Enter your choice: ";
-                    cin >> studentChoice;
-                    cin.ignore();
-
-                    switch (studentChoice) {
-                    case 1:
-                       
-                        student.BorrowBook(books);
-                        break;
-                    case 2:
-                        student.ReturnBook(books);
-                        break;
-                    case 3:
-                        cout << "Logging out...\n";
-                        goto LOGIN_MENU;
-                    default:
-                        cout << "Invalid choice. Try again.\n";
                     }
                 }
             }
+
+            if (option == 2) {
+                if (user.Login(user)) {
+                    int studentChoice;
+                    vector<string>data;
+                    while (true) {
+                        cout << "\nStudent Menu\n";
+                        cout << "1. Borrow Book\n";
+                        cout << "2. Return Book\n";
+                        cout << "3. PremiumStudent\n";
+                        cout << "4. Create Student\n";
+                        cout << "5. Display Student\n";
+                        cout << "6. Update Student\n";
+                        cout << "7. Search student\n";
+                        cout << "8.  Logout\n";
+                        cout << "Enter your choice: ";
+                        cin >> studentChoice;
+                        cin.ignore();
+
+                        switch (studentChoice) {
+                        case 1:
+
+                            //student->BorrowBook(books);
+                            student.BorrowBook();
+                            break;
+                        case 2:
+                            //student->ReturnBook(books);
+                            student.ReturnBook(books);
+                            break;
+                        case 3:
+                            //student = new PremiumStudent("anees");
+                            student.BorrowBook();
+                            cout << "Congratulations! You are now a Premium Student!\n";
+                            break;
+                        case 4:
+                            student.createData(data, "student.txt");
+                            break;
+                        case 5:
+                            student.displayData("student.txt");
+                            break;
+                        case 6:
+                            student.updateData(data,"student.txt");
+                            break;
+                        case 7:
+                            student.searchData("student.txt");
+                            break;
+                        case 8:
+
+                            cout << "Logging out...\n";
+                            goto LOGIN_MENU;
+                        default:
+
+
+                            cout << "Invalid choice. Try again.\n";
+                        }
+                    }
+                }
+            }
+
+        LOGIN_MENU:;
         }
 
-    LOGIN_MENU:;
+        return 0;
     }
-
-    return 0;
-}
+//}
